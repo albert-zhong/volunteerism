@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | {{ event.name }}{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">{{ event.name }}</h1>
+            <p class="lead">{{ event.time }} @ {{ event.location }} ({% if event.is_public %}Public Event{% else %}Private Event{% endif %})</p>
+            <hr class="my-4">
+            <p><b>Event Organizer: </b> {{ event.organizer.get_full_name }} ({{ event.organizer.email }})</p>
+            <p><b>Description: </b>{{ event.description }}</p>
+            <p><b>Spots: </b>{{ event.volunteers.count }} / {{ event.spots }}</p>
+            <p class="lead">
+                <a class="btn btn-primary" href="{% url 'event_add_volunteers' event.pk %}">Add volunteers</a>
+                <a class="btn btn-info" href="{% url 'event_update' event.pk %}">Update</a>
+                <a class="btn btn-danger" href="{% url 'event_delete' event.pk %}">Delete</a>
+            </p>
+        </div>
+
+        <div class="row">
+            <h2>Current volunteers signed up: {{ event.volunteers.count }} / {{ event.spots }}</h2>
+        </div>
+
+        <div class="row">
+            <ul>
+                {% for volunteer in event.volunteers.all %}
+                    <li>{{ volunteer }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

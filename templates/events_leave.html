@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | leave event{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>Leave event</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to leave {{ event.name }}? You won't receive any further notifications about this event.</p>
+            <button class="btn btn-warning ml-2" type="submit">Confirm</button>
+        </form>
+    </div>
+{% endblock content %}

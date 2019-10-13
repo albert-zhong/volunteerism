@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | pending invitations{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>Pending invitations</h1>
+
+        {% if events_with_pending_invitations %}
+            {% for event in events_with_pending_invitations %}
+                <div class="card">
+                    <div class="card-header">
+                            <span class="font-weight-bold"><a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a></span>
+                            <span class="text-muted"> • {% if event.is_public %}Public Event{% else %}Private Event{% endif %} • {{ event.time }} @ {{ event.location }} </span>
+                        </div>
+            
+                    <div class="card-body">
+                        <p><b>Event Organizer:</b> me ({{ event.organizer.email }})</p>
+                        <p>{{ event.volunteers.count }} out of {{ event.spots }} volunteer spots filled</p>
+                        <p><b>Description: </b>{{ event.description }}</p>
+                    </div>
+    
+                    <div class="card-footer">
+                        <a class="btn btn-success" href="{% url 'event_join' event.pk %}">Accept</a>
+                        <a class="btn btn-danger" href="{% url 'event_reject_invitation' event.pk %}">Reject</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+                <h3>None found! Try joining some public events.</h3>
+                <a class="btn btn-success" href="{% url 'events_public_list' %}">Public Events</a>
+        {% endif %}
+    </div>
+{% endblock content %}

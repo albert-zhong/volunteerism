@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | public events{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>Public Events</h1>
+
+        {% for event in events %}
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold"><a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a></span>
+                    <span class="text-muted"> • {% if event.is_public %}Public Event{% else %}Private Event{% endif %} • {{ event.time }} @ {{ event.location }} </span>
+                </div>
+    
+                <div class="card-body">
+                    <p><b>Event Organizer:</b> {{ event.organizer.get_full_name }} ({{ event.organizer.email }})</p>
+                    <p>{{ event.volunteers.count }} out of {{ event.spots }} volunteer spots filled</p>
+                    <p><b>Description: </b>{{ event.description }}</p>
+                </div>
+    
+                <div class="card-footer">
+                    {% if user in event.volunteers.all %}
+                        <a class="btn btn-outline-success">Already joined!</a>
+                        <a class="btn btn-warning" href="{% url 'event_leave' event.pk %}">Leave</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'event_join' event.pk %}">Join</a>
+                    {% endif %}
+                </div>
+            </div>
+            <br />
+        {% endfor %}
+    </div>
+{% endblock content %}

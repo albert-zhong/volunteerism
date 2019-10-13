@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | organized events{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>My Organized Events</h1>
+
+        {% for event in organized_events %}
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold"><a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a></span>
+                    <span class="text-muted"> • {% if event.is_public %}Public Event{% else %}Private Event{% endif %} • {{ event.time }} @ {{ event.location }} </span>
+                </div>
+    
+                <div class="card-body">
+                    <p><b>Event Organizer:</b> me ({{ event.organizer.email }})</p>
+                    <p>{{ event.volunteers.count }} out of {{ event.spots }} volunteer spots filled</p>
+                    <p><b>Description: </b>{{ event.description }}</p>
+                </div>
+    
+                <div class="card-footer">
+                    <a class="btn btn-primary" href="{% url 'event_add_volunteers' event.pk %}">Add volunteers</a>
+                    <a class="btn btn-info" href="{% url 'event_update' event.pk %}">Update</a>
+                    <a class="btn btn-danger" href="{% url 'event_delete' event.pk %}">Delete</a>
+                </div>
+            </div>
+            <br />
+        {% endfor %}
+    </div>
+{% endblock content %}

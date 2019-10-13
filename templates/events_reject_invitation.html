@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Volunteerism | reject invitation{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>Reject Event</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to reject the invitation to volunteer for {{ event.name }}?</p>
+            <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+        </form>
+    </div>
+{% endblock content %}
