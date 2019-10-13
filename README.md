@@ -1,6 +1,6 @@
 # volunteerism
 View, join, and organize volunteering events in your community (DubHacks 2019)
 
-Live at [an Amazon AWS EC2 server](ec2-34-223-229-204.us-west-2.compute.amazonaws.com)
+Live at ec2-34-223-229-204.us-west-2.compute.amazonaws.com
 
 Built with Python, Django, PostgreSQL, and Bootstrap
